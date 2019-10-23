@@ -9,34 +9,38 @@ class App extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      name: 'Dima',
-      route: '/',
+      route: window.location.hash.substr(1),
     };
   }
-
-  setRoute = (newRoute) => {
-    this.setState({route: newRoute})
-  };
   
+  componentDidMount() {
+    window.addEventListener('hashchange', () => {
+      this.setState({
+        route: window.location.hash.substr(1)
+      });
+    });
+  }
+
   render() {
-    var Route
-      switch (this.state.route) {
-        case '/profile':
-          Route = Profile;
-          break;
-        case '/Map':
-          Route = Map;
-          break;
-        case '/registration':
-          Route = Registration;
-          break;
-        default:
-          Route = Login;
-      }
+    var Route;
+    switch (this.state.route) {
+    case '/profile':
+      Route = Profile;
+      break;
+    case '/map':
+      Route = Map;
+      break;
+    case '/registration':
+      Route = Registration;
+      break;
+    default:
+      Route = Login;
+      break;
+    }
 
     return (
       <>
-        <Route setRountFun={this.setRoute} />
+        <Route setRoutFun={this.setRoute} />
       </>
     )
   };
