@@ -1,12 +1,13 @@
 import React from 'react';
 
+import LoginForm from '../LoginForm/LoginForm';
+
 class Login extends React.Component {
   render() {
     return(
       <>
-        <h1>Войти</h1>
-        {/* <button onClick={() => this.props.setRoutFun('/profile')} >Войти</button> */}
-        <a href='#/profile' >Войти</a>
+        <h1>Логин</h1>
+        <LoginForm/>
       </>
     )
   }

@@ -8,6 +8,7 @@ class Profile extends React.Component {
     return(
       <>
         <Header/>
+        <h1>Профиль</h1>
         <ProfileForm/>
       </>
     )
