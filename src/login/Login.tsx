@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LoginForm from "./LoginForm";
+
 export interface LoginProps {}
  
 export interface LoginState {}
@@ -9,7 +11,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   render() {  
     return ( 
       <>
-        <h1>Логин</h1>
+        <LoginForm/>
       </>
     );
   }

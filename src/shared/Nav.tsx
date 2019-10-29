@@ -1,36 +1,33 @@
 import React from 'react';
 
+import Button from '@material-ui/core/Button';
+
 const buttons = [
   { path: 'profile', pathName: 'Профиль' },
   { path: 'map', pathName: 'Карта'},
-  { path: 'login', pathName: 'Логин'},
-  { path: 'signup', pathName: 'Регистрация'},
+  { path: 'login', pathName: 'Войти'},
 ]
 
 export interface NavProps {
   setPath: (path: string) => void;
 }
  
-export interface NavState {}
- 
-class Nav extends React.Component<NavProps, NavState> {
-  state = {}
-  render() { 
-    const { setPath } = this.props;
-    return ( 
-      <>
-        <ul>
-          {buttons.map(button => {
-            return (
-              <li key={button.path}>
-                <button type='button' onClick={() => setPath(button.path)}>{button.pathName}</button>
-              </li>
-            )            
-          })}
-        </ul>
-      </>
-    );
-  }
+const Nav: React.SFC<NavProps> = (props) => {
+  const { setPath } = props;
+
+  return ( 
+    <>
+      <ul>
+        {buttons.map(button => {
+          return (
+            <Button onClick={() => setPath(button.path)}>
+              {button.pathName}
+            </Button>
+          )            
+        })}
+      </ul>
+    </>
+  );
 }
  
 export default Nav;

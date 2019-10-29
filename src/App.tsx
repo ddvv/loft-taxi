@@ -1,5 +1,8 @@
 import React from "react";
-import "./App.css";
+
+import { ThemeProvider, useTheme } from '@material-ui/core/styles';
+import { theme } from "./shared/theme";
+
 import Profile from "./profile";
 import Login from "./login";
 import Map from "./map";
@@ -36,8 +39,10 @@ class App extends React.Component<AppProps, AppState> {
   render() { 
     return ( 
       <>
-        <Header setPath={this.setPath}/>
-        {this.setComponent()}
+        <ThemeProvider theme={theme}>
+          <Header setPath={this.setPath}/>
+          {this.setComponent()}
+        </ThemeProvider>
       </>
     );
   }
