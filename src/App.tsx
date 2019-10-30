@@ -11,11 +11,13 @@ import Header from "./shared/Header";
 
 export interface AppProps {}
  
-export interface AppState {}
+export interface AppState {
+  path: string
+}
  
 class App extends React.Component<AppProps, AppState> {
   state = { 
-    path: 'login',
+    path: 'map',
   }
 
   setPath = (path: string) => {

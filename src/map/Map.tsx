@@ -1,4 +1,5 @@
 import React from 'react';
+import MapBox from './MapBox';
 
 export interface MapProps {}
  
@@ -8,8 +9,8 @@ class Map extends React.Component<MapProps, MapState> {
   state = {};
   render() { 
     return ( 
-      <>
-        <h1>Карта</h1> 
+      <> 
+        <MapBox/>
       </>
     );
   }
