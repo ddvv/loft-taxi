@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-export interface ProfileProps {}
+import AuthContext from "./../contexts/auth-context";
+
+export interface ProfileProps {
+  
+}
  
-export interface ProfileState {}
- 
-class Profile extends React.Component<ProfileProps, ProfileState> {
-  state = {}
-  render() { 
-    return ( 
-      <>
-        <h1>Профиль</h1>
-      </>
-    );
-  }
+const Profile: React.SFC<ProfileProps> = () => {
+  const auth = useContext(AuthContext);
+
+  return ( 
+    <>
+      {auth.isLoggedIn ? <h1>Профиль</h1> : <h1>Сначала авторизуйтесь</h1> }
+    </>
+  );
 }
  
 export default Profile;

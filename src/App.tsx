@@ -9,15 +9,35 @@ import Map from "./map";
 import Signup from "./signup";
 import Header from "./shared/Header";
 
+import AuthContext from "./contexts/auth-context";
+
 export interface AppProps {}
  
 export interface AppState {
-  path: string
+  path: string,
+  isLoggedIn: boolean,
+  login: any,
+  logout: any,
 }
  
 class App extends React.Component<AppProps, AppState> {
-  state = { 
-    path: 'map',
+  constructor(props:any) {
+    super(props);
+
+    this.state = {
+      path: 'profile',
+      isLoggedIn: false,
+      login: this.setLogIn,
+      logout: this.setLogOut, 
+    }
+  }
+
+  setLogIn = (email:string, password:string) => {
+    this.setState({ isLoggedIn: true });
+  }
+
+  setLogOut = () => {
+    this.setState({ isLoggedIn: false });
   }
 
   setPath = (path: string) => {
@@ -41,10 +61,12 @@ class App extends React.Component<AppProps, AppState> {
   render() { 
     return ( 
       <>
-        <ThemeProvider theme={theme}>
-          <Header setPath={this.setPath}/>
-          {this.setComponent()}
-        </ThemeProvider>
+        <AuthContext.Provider value={this.state}>
+          <ThemeProvider theme={theme}>
+            <Header setPath={this.setPath}/>
+            {this.setComponent()}
+          </ThemeProvider>
+        </AuthContext.Provider>
       </>
     );
   }
