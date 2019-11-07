@@ -11,8 +11,9 @@ export interface MapBoxState {
   zoom: number,
 }
  
-class MapBox extends React.Component<MapBoxProps, MapBoxState> {
-  constructor(props:any) {
+class MapBox extends React.Component<MapBoxProps, MapBoxState> {  
+  mapContainer:any;
+  constructor(props:MapBoxProps) {
     super(props);
     this.mapContainer = React.createRef();
     this.state = {

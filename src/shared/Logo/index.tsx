@@ -2,8 +2,9 @@ import React from "react";
 import logo from "./logo.svg";
 import logoWhite from "./logo-white.svg";
 import { withStyles } from "@material-ui/core";
+import { theme } from "./../theme";
 
-const styles = theme => ({
+const styles = (theme: any) => ({
   "@keyframes slide-in-blurred-left": {
     "0%": {
       transform: "translateX(-1000px) scaleX(2.5) scaleY(0.2)",
@@ -24,11 +25,13 @@ const styles = theme => ({
   }
 });
 
-export const Logo = withStyles(styles)(({ white, animated, classes }) => {
+export const Logo = withStyles(styles)((
+  // { white, animated, classes }
+  ) => {
   return (
     <img
-      className={animated && classes.logo}
-      src={white ? logoWhite : logo}
+      // className={animated && classes.logo}
+      src={logo}
       width="156"
       alt="Logo"
     />

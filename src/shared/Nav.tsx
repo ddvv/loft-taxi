@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { AuthContext } from "../shared/AuthContext";
-
 import Button from '@material-ui/core/Button';
 
 
+export interface NavProps {
+  setPath: (path: string) => void,
+}
  
-const Nav = ({ setPath }) => {
+const Nav: React.SFC<NavProps> = ({ setPath }) => {
   const { isAuthorized, logout } = useContext(AuthContext);
   const buttons = [
     { path: 'profile', pathName: 'Профиль' },
@@ -20,7 +22,7 @@ const Nav = ({ setPath }) => {
     <ul>
       {buttons.map(button => {
         return (
-          <Button onClick={() => setPath(button.path)}>
+          <Button onClick={() => setPath(button.path)} key={button.path}>
             {button.pathName}
           </Button>
         )            

@@ -9,13 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import { Logo } from "./Logo";
 import Nav from "./Nav";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    logo: {
-      marginRight: '100%',
-    },
-  }),
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     logo: {
+//       marginRight: '100%',
+//     },
+//   }),
+// );
 
 export interface HeaderProps {
   setPath: (path: string) => void
@@ -23,20 +23,18 @@ export interface HeaderProps {
  
 const Header: React.SFC<HeaderProps> = (props) => {
   const theme = useTheme();
-  const classes = useStyles();
+  // const classes = useStyles();
   const { setPath } = props;
 
   return ( 
-    <>
-      <ThemeProvider theme={theme}>
-        <AppBar position="static">
-          <Toolbar>
-            <Logo className={classes.logo}/>
-            <Nav setPath={setPath}/>
-          </Toolbar>
-        </AppBar>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <AppBar position="static">
+        <Toolbar>
+          <Logo/>
+          <Nav setPath={setPath}/>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   );
 }
  

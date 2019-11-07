@@ -2,7 +2,7 @@ import React from "react";
 import { bool } from "prop-types";
   
 const AuthContext = React.createContext({ 
-  isAuthorized:bool,
+  isAuthorized: false,
   login: () => {},
   logout: () => {},
 });
@@ -29,7 +29,7 @@ class AuthProvider extends React.Component<AuthProviderProps, AuthProviderState>
 	  return (
 	    <AuthContext.Provider 
 	      value = {{
-	        isAuthorized:bool,
+	        isAuthorized,
 	        login: this.login,
 	        logout: this.logout,
 	      }}

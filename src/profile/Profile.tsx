@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { AuthContext } from "../shared/AuthContext";
 
-const Profile = () => {
+export interface ProfileProps {}
+ 
+const Profile: React.SFC<ProfileProps> = () => {
   const { isAuthorized } = useContext(AuthContext);
 
   return ( 
