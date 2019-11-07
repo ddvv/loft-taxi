@@ -14,16 +14,21 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
  
-const LoginForm = ({ setPath }) => {
+
+export interface LoginFormProps {
+  setPath: (path: string) => void
+}
+ 
+const LoginForm: React.SFC<LoginFormProps> = ({ setPath }) => {
   const { login } = useContext(AuthContext);
   const theme = useTheme();
 
-  const onSubmit = e => {
+  const onSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     login();
     setPath("profile");
   };
-
+  
   return ( 
     <form>
       <ThemeProvider theme={theme}>
