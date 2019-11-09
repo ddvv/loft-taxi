@@ -1,37 +1,45 @@
-import React, { useContext } from 'react';
-import { AuthContext } from "../shared/AuthContext";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { withAuth } from './../AuthContext';
 import Button from '@material-ui/core/Button';
 
-
-export interface NavProps {
-  setPath: (path: string) => void,
+export interface NavAuthProps {
+  isAuthorized: boolean,
+  logout: () => {},
 }
  
-const Nav: React.SFC<NavProps> = ({ setPath }) => {
-  const { isAuthorized, logout } = useContext(AuthContext);
+const NavAuth: React.SFC<NavAuthProps> = ({ 
+  isAuthorized,
+  logout,
+ }) => {
+  
   const buttons = [
-    { path: 'profile', pathName: 'Профиль' },
-    { path: 'map', pathName: 'Карта'},
+    { path: '/profile', pathName: 'Профиль' },
+    { path: '/map', pathName: 'Карта'},
   ];
   
   if(!isAuthorized) {
-    buttons.push({ path: 'login', pathName: 'Войти'});
+    buttons.push({ path: '/login', pathName: 'Войти'});
   }
 
   return ( 
     <ul>
       {buttons.map(button => {
         return (
-          <Button onClick={() => setPath(button.path)} key={button.path}>
-            {button.pathName}
+          <Button key={button.path}>
+            <Link to={button.path}>
+              {button.pathName}
+            </Link>
           </Button>
         )            
       })}
       {isAuthorized 
-        ? <Button onClick={() => {logout(); setPath('login')}}>Выйти</Button> 
+        ? <Button onClick={logout}>Выйти</Button> 
         : <div></div>}
     </ul>
   );
 }
  
+const Nav = withAuth(NavAuth);
+
 export default Nav;

@@ -1,4 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
+import {
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
 import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 import { theme } from "./shared/theme";
@@ -9,51 +14,51 @@ import Map from "./map";
 import Signup from "./signup";
 import Header from "./shared/Header";
 
-import { AuthProvider } from "./shared/AuthContext";
+import { AuthProvider } from './AuthContext';
 
 export interface AppProps {}
  
 export interface AppState {
-  path: string,
+  isAuthorized: boolean,
 }
  
 class App extends React.Component<AppProps, AppState> {
-  constructor(props:any) {
-    super(props);
-
-    this.state = {
-      path: 'login',
-    }
+  loginPath = '/login';
+  state = {
+    isAuthorized: false,
   }
 
-  setPath = (path: string) => {
-    this.setState({ path });
-  }
+  login = () => {
+	  this.setState({ isAuthorized: true });
+  };
 
-  setComponent = () => {
-    const {path} = this.state;
-    switch(path) {
-      case 'map':
-        return <Map/>;
-      case 'profile':
-        return <Profile/>;
-      case 'signup':
-        return <Signup/>;
-      default:
-        return <Login setPath={this.setPath}/>;
-    }
-  }
+  logout = () => {
+	  this.setState({ isAuthorized: false });
+	};
 
   render() { 
+    const { isAuthorized } = this.state;
     return ( 
-      <AuthProvider>
-        <ThemeProvider theme={theme}>
-          <Header setPath={this.setPath}/>
-          {this.setComponent()}
-        </ThemeProvider>
-      </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider
+          value={{
+            isAuthorized,
+            login: this.login,
+            logout: this.logout,
+            loginPath: this.loginPath,
+          }}
+        >
+          <Header/>
+          <Switch>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/login" component={Login} />
+            <Route path="/map" component={Map} />
+            <Redirect to="/profile" />
+          </Switch>
+        </AuthProvider>
+      </ThemeProvider>
     );
   }
 }
- 
+
 export default App;

@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../shared/AuthContext";
-
-// import AuthContext from "./../contexts/auth-context";
+import { withAuth } from "./../AuthContext";
 
 import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
@@ -15,19 +13,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
  
 
-export interface LoginFormProps {
-  setPath: (path: string) => void
+export interface LoginFormAuthProps {
+  login: () => {},
 }
  
-const LoginForm: React.SFC<LoginFormProps> = ({ setPath }) => {
-  const { login } = useContext(AuthContext);
-  const theme = useTheme();
-
-  const onSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    login();
-    setPath("profile");
-  };
+const LoginFormAuth: React.SFC<LoginFormAuthProps> = ({ login }) => {
+  const theme = useTheme(); 
   
   return ( 
     <form>
@@ -50,7 +41,7 @@ const LoginForm: React.SFC<LoginFormProps> = ({ setPath }) => {
           </FormControl>
         </div>
         <div>
-          <Button onClick={onSubmit}>
+          <Button onClick={login}>
             Войти
           </Button>
         </div>  
@@ -58,5 +49,7 @@ const LoginForm: React.SFC<LoginFormProps> = ({ setPath }) => {
     </form>
   );
 }
+
+const LoginForm = withAuth(LoginFormAuth);
  
 export default LoginForm;
