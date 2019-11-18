@@ -1,18 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withAuth } from './../AuthContext';
 import Button from '@material-ui/core/Button';
 
-export interface NavAuthProps {
-  isAuthorized: boolean,
-  logout: () => {},
-}
- 
-const NavAuth: React.SFC<NavAuthProps> = ({ 
+
+const Nav = ({ 
   isAuthorized,
   logout,
- }) => {
-  
+}) => {
   const buttons = [
     { path: '/profile', pathName: 'Профиль' },
     { path: '/map', pathName: 'Карта'},
@@ -40,6 +34,4 @@ const NavAuth: React.SFC<NavAuthProps> = ({
   );
 }
  
-const Nav = withAuth(NavAuth);
-
 export default Nav;

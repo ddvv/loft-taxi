@@ -3,7 +3,7 @@ import Icon from "@material-ui/core/Icon";
 import { withStyles } from "@material-ui/core/styles";
 import logo from "./mc_symbol.svg";
 
-const styles = (theme: any) => ({
+const styles = (theme) => ({
   // icon: {
   //   position: "absolute",
   //   top: 8,
@@ -14,7 +14,7 @@ const styles = (theme: any) => ({
 
 export const MCIcon = withStyles(styles)((
   // { classes, ...props }
-  ) => {
+) => {
   return (
     <Icon>
       <img width="32px" src={logo} alt="mastercard"/>

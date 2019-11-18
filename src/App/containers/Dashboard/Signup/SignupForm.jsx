@@ -1,17 +1,12 @@
 import React from "react";
 
-
-export interface SignupFormProps {
-  setPage: (path:string) => void,
-}
- 
-const SignupForm: React.SFC<SignupFormProps> = ({ setPage }) => {
-  const onSubmit = (e: { preventDefault: () => void; }) => {
+const SignupFormProps = ({ setPage }) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     setPage("profile");
   };
 
-  const toPageLogin = (e: { preventDefault: () => void; }) => {
+  const toPageLogin = (e) => {
     e.preventDefault();
     setPage("login");
   };
@@ -50,4 +45,4 @@ const SignupForm: React.SFC<SignupFormProps> = ({ setPage }) => {
   );
 }
  
-export default SignupForm;
+export default SignupFormProps;

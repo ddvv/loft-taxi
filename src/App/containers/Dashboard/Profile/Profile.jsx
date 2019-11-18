@@ -3,16 +3,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-// import { AuthContext } from "../shared/AuthContext";
-import { withAuth } from './../AuthContext';
 
-export interface ProfileProps {
-  component: any,
-  isAuthorized: boolean,
-  loginPath: string,
-}
- 
-const Profile: React.SFC<ProfileProps> = ({
+const ProfileProps = ({
   component: RouteComponent,
   isAuthorized,
   loginPath,
@@ -31,7 +23,5 @@ const Profile: React.SFC<ProfileProps> = ({
     />
   );
 }
-
-const newProfile = withAuth(Profile);
  
-export default newProfile;
+export default ProfileProps;

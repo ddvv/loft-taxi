@@ -8,9 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Logo } from "./Logo";
 import Nav from "./Nav";
 
-export interface HeaderProps {}
- 
-const Header: React.SFC<HeaderProps> = () => {
+
+const Header = () => {
   const theme = useTheme();
 
   return ( 
