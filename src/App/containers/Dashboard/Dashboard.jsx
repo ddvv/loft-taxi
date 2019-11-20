@@ -4,7 +4,6 @@ import Map from "./Map";
 import Profile from "./Profile";
 
 class Dashboard extends Component {
-  state = {  }
   render() { 
     return ( 
       <Switch>

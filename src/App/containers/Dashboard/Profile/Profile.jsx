@@ -1,26 +1,8 @@
-import React, { useContext } from 'react';
-import {
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import React from 'react';
 
-const ProfileProps = ({
-  component: RouteComponent,
-  isAuthorized,
-  loginPath,
-  ...rest
-}) => {
+const ProfileProps = () => {
   return (
-    <Route
-      {...rest}
-      render={() =>
-        isAuthorized ? (
-          <h1>Профиль</h1>
-        ) : (
-          <Redirect to={loginPath} />
-        )
-      }
-    />
+    <h1>Профиль</h1>
   );
 }
  
