@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { actions } from './store/duck';
 import { isLoginSelector } from './store/selectors';
 import Login from './containers/Login';
+import Signup from './containers/Signup';
 import AppRouter from './components/AppRouter';
 // import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 // import { theme } from "./shared/theme";
@@ -45,6 +46,10 @@ class App extends Component {
           <Route 
             path="/login" 
             component={Login}
+          ></Route>
+          <Route 
+            path="/signup" 
+            component={Signup}
           ></Route>
           <Redirect to="login"></Redirect>
         </Switch>
