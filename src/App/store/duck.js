@@ -24,7 +24,11 @@ export const actions = {
   checkIsLogin: createAction(constants.CHECK_IS_LOGIN),
   logIn: createAction(constants.LOG_IN),
   logInSuccess: createAction(constants.LOG_IN_SUCCESS),
-  logInFailure: createAction(constants.LOG_IN_FAILURE)
+  logInFailure: createAction(constants.LOG_IN_FAILURE),
+
+  signUp: createAction(constants.SIGN_UP),
+  signUpSuccess: createAction(constants.SIGN_UP_SUCCESS),
+  signUpFailure: createAction(constants.SIGN_UP_FAILURE),
 };
 
 // редьюсер isLogin
@@ -52,7 +56,37 @@ const isLogin = (state = initialState, action) => {
   }
 };
 
+const signupInitialState = {
+  isAuth: false, // статус авторизации
+  loader: false, // показывать прелодер или нет
+  success: {} // для логина и пароля
+};
+
+const signUp = payload => {
+  return {
+    type: constants.LOG_IN,
+    payload
+  };
+};
+
+// редьюсер isSignup
+const isSignup = (state = signupInitialState, action) => {
+  switch (action.type) {
+  case constants.SIGN_UP:
+    return { ...state, loader: true };
+
+  case constants.SIGN_UP_SUCCESS:
+    return { ...state, isAuth: true, loader: false };
+
+  case constants.SIGN_UP_FAILURE:
+    return { ...state, loader: false };
+
+  default:
+    return state;
+  }
+};
+
 // собираем редьюсеры в один
-const appReducer = combineReducers({ isLogin });
+const appReducer = combineReducers({ isLogin, isSignup });
 
 export default appReducer;
