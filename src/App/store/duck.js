@@ -57,9 +57,8 @@ const isLogin = (state = initialState, action) => {
 };
 
 const signupInitialState = {
-  isAuth: false, // статус авторизации
-  loader: false, // показывать прелодер или нет
-  success: {} // для логина и пароля
+  loader: false, 
+  success: {} 
 };
 
 const signUp = payload => {

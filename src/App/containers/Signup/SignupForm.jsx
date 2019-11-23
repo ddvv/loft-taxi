@@ -15,8 +15,8 @@ class SignupForm extends Component {
     super(props);
     this.state = { 
       email: '',
-      firstName: '',
-      lastName: '',
+      name: '',
+      surname: '',
       password: '',
     };
   }
@@ -31,14 +31,12 @@ class SignupForm extends Component {
     e.preventDefault();
     const { 
       email, 
-      firstName,
-      lastName,
+      name,
+      surname,
       password 
     } = this.state;
     const { signUp } = this.props;
-    console.log(this.state);
-    if(email && firstName && lastName && password) {
-      
+    if(email && name && surname && password) {
       signUp(this.state);
     }
   };
@@ -61,7 +59,7 @@ class SignupForm extends Component {
           <label>
             Имя <br/>
             <input 
-              name="firstName" 
+              name="name" 
               type="text" 
               onChange={this.handleChange}
             />
@@ -71,7 +69,7 @@ class SignupForm extends Component {
           <label>
             Фамилия <br/>
             <input 
-              name="lastName" 
+              name="surname" 
               type="text" 
               onChange={this.handleChange}
             />

@@ -9,7 +9,12 @@ export function* fetchLoginWorker(action) {
     // result - результат вызова fetchLogIn
     const result = yield call(fetchLogIn, payload);
     // put диспатчит экшн
-    yield put(actions.logInSuccess(result));
+    const { success } = result;
+    if (success) {
+      yield put(actions.logInSuccess(result));
+    } else {
+      yield put(actions.logInFailure(result));
+    }
   } catch (error) {
     yield put(actions.logInFailure());
   }
@@ -23,7 +28,12 @@ export function* fetchSignupWorker(action) {
   const { payload } = action;
   try {
     const result = yield call(fetchSignUp, payload);
-    yield put(actions.signUpSuccess(result));
+    const { success } = result;    
+    if (success) {
+      yield put(actions.signUpSuccess(result));
+    } else {
+      yield put(actions.signUpFailure(result));
+    }
   } catch (error) {
     yield put(actions.signUpFailure());
   }
