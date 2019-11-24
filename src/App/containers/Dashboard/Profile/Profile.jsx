@@ -1,8 +1,9 @@
 import React from 'react';
+import PaymentForm from './PaymentForm';
 
 const ProfileProps = () => {
   return (
-    <h1>Профиль</h1>
+    <PaymentForm/>
   );
 }
  

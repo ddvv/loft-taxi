@@ -1,8 +1,16 @@
 import { takeLatest, call, put } from "redux-saga/effects";
-import { actions } from "./duck";
+import { actions, tokenAuth } from "./duck";
 import * as constants from "./constants";
-import { fetchLogIn, fetchSignUp } from "./../../core/utils/api";
+import { 
+  fetchLogIn, 
+  fetchSignUp, 
+  fetchGetCard,
+  fetchCard,
+  fetchAddressList,
+  fetchRoute,
+} from "./../../core/utils/api";
 
+/**> authorizationSaga */
 export function* fetchLoginWorker(action) {
   const { payload } = action;
   try {
@@ -23,7 +31,9 @@ export function* fetchLoginWorker(action) {
 export function* loginWatch() {
   yield takeLatest(constants.LOG_IN, fetchLoginWorker);
 }
+/**< authorizationSaga */
 
+/**> registrationSaga */
 export function* fetchSignupWorker(action) {
   const { payload } = action;
   try {
@@ -42,3 +52,72 @@ export function* fetchSignupWorker(action) {
 export function* signupWatch() {
   yield takeLatest(constants.SIGN_UP, fetchSignupWorker);
 }
+/**< registrationSaga */
+
+/**> paymentSaga */
+export function* fetchCardWorker(action) {
+  const { payload } = action;
+  try {
+    const result = yield call(fetchCard, payload);
+    
+    const { success } = result;    
+    if (success) {
+      yield put(actions.cardSuccess(result));
+    } else {
+      yield put(actions.cardFailure(result));
+    }
+  } catch (error) {
+    yield put(actions.cardFailure());
+  }
+}
+
+export function* cardWatch() {
+  yield takeLatest(constants.CARD, fetchCardWorker);
+}
+
+
+export function* fetchGetCardWorker(action) {
+  // const { payload } = action;
+  try {
+    const result = yield call(fetchGetCard, tokenAuth);
+    
+    const { success } = result;    
+    if (success === false) {
+      yield put(actions.getCardFailure(result));
+    } else {
+      yield put(actions.getCardSuccess(result));
+    }
+  } catch (error) {
+    yield put(actions.getCardFailure());
+  }
+}
+
+export function* cardGetWatch() {
+  yield takeLatest(constants.GET_CARD, fetchGetCardWorker);
+}
+/**< paymentSaga */
+
+/**>addressListSaga */
+export function* fetchAddressListWorker(action) {
+  const { payload } = action;
+  try {
+    const result = yield call(fetchAddressList, payload);
+    
+    const { success } = result;    
+    if (success === false) {
+      yield put(actions.getCardFailure(result));
+    } else {
+      yield put(actions.getCardSuccess(result));
+    }
+  } catch (error) {
+    yield put(actions.getCardFailure());
+  }
+}
+
+export function* addressListWatch() {
+  yield takeLatest(constants.GET_CARD, fetchAddressListWorker);
+}
+/**<addressListSaga */
+
+/**>routeSaga */
+/**<routeSaga */
