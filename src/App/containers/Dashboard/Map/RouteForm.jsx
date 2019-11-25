@@ -1,60 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from "./../../../store/duck";
-import { Form, Field } from 'react-final-form';
+import { addressesSelector } from "./../../../store/selectors";
+// import { Form, Field } from 'react-final-form';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-
-const componentSelect = ({ input, meta, label }) => {
-  return (
-    <>
-      <Select
-        // value={age}
-        // onChange={handleChange}
-        displayEmpty
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </>
-  )
-};
-
-const componentInput = ({ input, meta, label }) => {
-  return (
-    <>
-      <p>{label}</p>
-      <input {...input}/>
-      {meta.error && meta.visited && !meta.active && (
-        <pre style={{ color: "red" }}>{meta.error}</pre>
-      )}
-    </>
-  )
-};
-
-const onSubmit = () => {
-  console.log('Submit');
-}
-
-const validate = values => {
-  // const errors = {};
-  // if(!values.address1) {
-  //   errors.address1 = "Введите данные.";
-  // }
-  // return errors;
-}
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => {
   return {
-    // cardData: isCardSelector(state)
+    addresses: addressesSelector(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // card: value => dispatch(actions.card(value)),
-    // getCard: () => dispatch(actions.getCard())
+    getAddresses: () => dispatch(actions.getAddress()),
+    route: (value) => dispatch(actions.route(value)),
   }
 };
 
@@ -62,36 +26,69 @@ class RouteForm extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      address1: [],
-      address2: [],
+      address1: '',
+      address2: '',
     };
   }
 
+  componentDidMount() {
+    const { getAddresses } = this.props;
+    getAddresses();
+  }
+
+  handleChange = e => {
+    this.setState({ 
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { address1, address2 } = this.state;
+    const { route } = this.props;
+
+    if(address1 && address2 && address1 !== address2 ) {
+      route(this.state);
+    }
+  };
+
   render() {
-    const { address1, address2 } = this.props; 
-    return ( 
-      <Form
-        onSubmit={onSubmit}
-        validate={validate}
-        render={( handleSubmit ) => (
-          <form onSubmit={handleSubmit}>
-            <Field 
-              name="address1" 
-              label="Откуда" 
-              component="select"
+    const { address1, address2 } = this.state;
+    const { addresses } = this.props; 
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <FormControl >
+            <InputLabel>Откуда</InputLabel>
+            <Select
+              name="address1"
+              value={address1}
+              onChange={this.handleChange}
             >
-              <option value="#ff0000">❤️ Red</option>
-              <option value="#00ff00">💚 Green</option>
-              <option value="#0000ff">💙 Blue</option>
-            </Field>
-            <Field 
-              name="address2" 
-              label="Куда" 
-              component={componentInput} 
-            />
-          </form>
-        )}
-      />
+              {addresses.map((address, item) => {
+                return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+              })}
+            </Select>
+          </FormControl>
+        </div>
+        <div>
+          <FormControl >
+            <InputLabel>Куда</InputLabel>
+            <Select
+              name="address2"
+              value={address2}
+              onChange={this.handleChange}
+            >
+              {addresses.map((address, item) => {
+                return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+              })}
+            </Select> 
+          </FormControl>
+        </div>
+        <div>
+          <Button type="submit">Построить маршрут</Button>
+        </div>
+      </form>
     );
   }
 }

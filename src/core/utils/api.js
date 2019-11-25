@@ -42,12 +42,7 @@ export const fetchAddressList = () => {
 };
 
 export const fetchRoute = (data) => {
-  return fetch("https://loft-taxi.glitch.me/route", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }).then(response => response.json());
+  const { address1, address2} = data;
+  return fetch(`https://loft-taxi.glitch.me/route?address1=${address1}&address2=${address2}`)
+    .then(response => response.json());
 };

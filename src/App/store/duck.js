@@ -20,6 +20,16 @@ const initialStatePayment = {
   card: {}, 
 };
 
+const initialStateAddress = {
+  loader: false,
+  addresses: [], 
+};
+
+const initialStateRoute = {
+  loader: false,
+  route: [],
+}
+
 const logIn = payload => {
   return {
     type: constants.LOG_IN,
@@ -45,6 +55,14 @@ export const actions = {
   getCard: createAction(constants.GET_CARD),
   getCardSuccess: createAction(constants.GET_CARD_SUCCESS),
   getCardFailure: createAction(constants.GET_CARD_FAILURE),
+
+  getAddress: createAction(constants.GET_ADDRESS),
+  getAddressSuccess: createAction(constants.GET_ADDRESS_SUCCESS),
+  getAddressFailure: createAction(constants.GET_ADDRESS_FAILURE),
+  
+  route: createAction(constants.ROUTE),
+  routeSuccess: createAction(constants.ROUTE_SUCCESS),
+  routeFailure: createAction(constants.ROUTE_FAILURE),
 };
 
 /**>
@@ -110,11 +128,43 @@ const payment = (state = initialStatePayment, action) => {
   }
 };
 
+const address = (state = initialStateAddress, action) => {
+  switch (action.type) {
+  case constants.GET_ADDRESS:
+    return { ...state, loader: true };
+
+  case constants.GET_ADDRESS_SUCCESS:
+    return { ...state, loader: false, addresses: action.payload.addresses};
+
+  case constants.GET_ADDRESS_FAILURE:
+    return { ...state, loader: false };
+
+  default:
+    return state;
+  }
+};
+
+const route = (state = initialStateRoute, action) => {
+  switch (action.type) {
+  case constants.ROUTE:
+    return { ...state, loader: true };
+
+  case constants.ROUTE_SUCCESS:
+    return { ...state, loader: false, route: action.payload};
+
+  case constants.ROUTE_FAILURE:
+    return { ...state, loader: false };
+
+  default:
+    return state;
+  }
+};
+
 /**<
  * reducers
  */
 
 // собираем редьюсеры в один
-const appReducer = combineReducers({ isLogin, payment });
+const appReducer = combineReducers({ isLogin, payment, address, route });
 
 export default appReducer;

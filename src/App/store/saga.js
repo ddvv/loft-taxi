@@ -103,21 +103,31 @@ export function* fetchAddressListWorker(action) {
   try {
     const result = yield call(fetchAddressList, payload);
     
-    const { success } = result;    
-    if (success === false) {
-      yield put(actions.getCardFailure(result));
-    } else {
-      yield put(actions.getCardSuccess(result));
-    }
+    yield put(actions.getAddressSuccess(result));
   } catch (error) {
-    yield put(actions.getCardFailure());
+    yield put(actions.getAddressFailure());
   }
 }
 
 export function* addressListWatch() {
-  yield takeLatest(constants.GET_CARD, fetchAddressListWorker);
+  yield takeLatest(constants.GET_ADDRESS, fetchAddressListWorker);
 }
 /**<addressListSaga */
 
 /**>routeSaga */
+export function* fetchRouteWorker(action) {
+  const { payload } = action;
+  console.log(payload);
+  try {
+    const result = yield call(fetchRoute, payload);
+    
+    yield put(actions.routeSuccess(result));
+  } catch (error) {
+    yield put(actions.routeFailure());
+  }
+}
+
+export function* routeWatch() {
+  yield takeLatest(constants.ROUTE, fetchRouteWorker);
+}
 /**<routeSaga */

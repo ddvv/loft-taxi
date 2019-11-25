@@ -6,3 +6,9 @@ export const isLoginSelector = state =>
 
 export const isCardSelector = state => 
   appSelector(state).payment.card;
+
+export const addressesSelector = state => 
+  appSelector(state).address.addresses;
+
+export const routeSelector = state => 
+  appSelector(state).route.route;

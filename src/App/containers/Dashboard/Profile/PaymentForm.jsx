@@ -44,7 +44,7 @@ class PaymentForm extends Component {
   };
 
   render() { 
-    let { cardNumber, expiryDate, cardName, cvc } = this.props.cardData;
+    // let { cardNumber, expiryDate, cardName, cvc } = this.props.cardData;
     return ( 
       <form onSubmit={this.handleSubmit}>
         <div>

@@ -4,6 +4,8 @@ import {
   signupWatch, 
   cardWatch,
   cardGetWatch, 
+  addressListWatch,
+  routeWatch,
 } from "./../../App/store/saga";
 
 export default function* rootSaga() {
@@ -12,5 +14,7 @@ export default function* rootSaga() {
     signupWatch(), 
     cardWatch(),
     cardGetWatch(),
+    addressListWatch(),
+    routeWatch(),
   ]);
 }
