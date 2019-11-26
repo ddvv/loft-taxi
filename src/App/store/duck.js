@@ -16,6 +16,7 @@ const initialState = {
 
 const initialStatePayment = {
   loader: false,
+  isCard: false,
   success: {}, 
   card: {}, 
 };
@@ -60,6 +61,7 @@ export const actions = {
   getAddressSuccess: createAction(constants.GET_ADDRESS_SUCCESS),
   getAddressFailure: createAction(constants.GET_ADDRESS_FAILURE),
   
+  routeDelete: createAction(constants.ROUTE_DELETE),
   route: createAction(constants.ROUTE),
   routeSuccess: createAction(constants.ROUTE_SUCCESS),
   routeFailure: createAction(constants.ROUTE_FAILURE),
@@ -109,7 +111,7 @@ const payment = (state = initialStatePayment, action) => {
     return { ...state, loader: true };
 
   case constants.GET_CARD_SUCCESS:
-    return { ...state, loader: false, card: action.payload};
+    return { ...state, loader: false, isCard: true, card: action.payload};
 
   case constants.GET_CARD_FAILURE:
     return { ...state, loader: false };
@@ -118,7 +120,7 @@ const payment = (state = initialStatePayment, action) => {
     return { ...state, loader: true };
 
   case constants.CARD_SUCCESS:
-    return { ...state, loader: false };
+    return { ...state, loader: false, isCard: true };
 
   case constants.CARD_FAILURE:
     return { ...state, loader: false };
@@ -146,6 +148,9 @@ const address = (state = initialStateAddress, action) => {
 
 const route = (state = initialStateRoute, action) => {
   switch (action.type) {
+  case constants.ROUTE_DELETE:
+    return { ...state, route: [] };
+
   case constants.ROUTE:
     return { ...state, loader: true };
 
