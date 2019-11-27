@@ -1,11 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import useForm from 'react-hook-form';
+import { RHFInput } from "react-hook-form-input";
 import { connect } from 'react-redux';
 import { actions } from "./../../../store/duck";
-import { isCardSelector } from './../../../store/selectors';
+import { cardDataSelector, cardLoadSelector } from './../../../store/selectors';
+import { theme } from './../Shared/theme';
+import {
+  TextField,
+  Button,
+  ThemeProvider,
+  Typography,
+} from "@material-ui/core";
 
 const mapStateToProps = state => {
   return {
-    cardData: isCardSelector(state)
+    cardData: cardDataSelector(state),
+    isLoadingCard: cardLoadSelector(state),
   };
 };
 
@@ -16,88 +26,86 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-class PaymentForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      cardNumber: '',
-      expiryDate: '',
-      cardName: '',
-      cvc: '',
-    };
-  }
+const PaymentForm = ({ 
+  cardData,
+  card,
+  isLoadingCard,
+}) => {
+  const { register, handleSubmit, watch, errors } = useForm();
 
-  handleChange = e => {
-    this.setState({ 
-      [e.target.name]: e.target.value
-    });
-  };
-  
-  handleSubmit = e => {
-    e.preventDefault();
-    const { cardNumber, expiryDate, cardName, cvc } = this.state;
-    const { card } = this.props;
-
-    if(cardNumber && expiryDate && cardName && cvc) {
-      card(this.state);
-    }
+  const onSubmit = (data, e) => {
+    e.preventDefault();  
+    card(data);
   };
 
-  render() { 
-    // let { cardNumber, expiryDate, cardName, cvc } = this.props.cardData;
+  if(isLoadingCard) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Typography variant="body1" gutterBottom>
+          Данные загружаются...
+        </Typography>
+      </ThemeProvider>
+    )
+  } else {
     return ( 
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>
-            Номер карты <br/>
-            <input 
-              name="cardNumber" 
-              type="number"
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Срок действия <br/>
-            <input 
-              name="expiryDate" 
-              type="month"
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Имя владельца <br/>
-            <input 
-              name="cardName" 
-              type="text" 
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            CVC <br/>
-            <input 
-              name="cvc" 
-              type="number"
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <br/>
-          <input 
-            type="submit" 
-            value="Сохранить" 
-            onChange={this.handleChange}
-          />
-        </div>
-      </form>
+      <ThemeProvider theme={theme}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label>
+              Номер карты <br/>
+              <RHFInput
+                as={<TextField type="text"/>}
+                name="cardNumber"
+                defaultValue={cardData.cardNumber}
+                register={register({ required: true })}
+              />
+              <Typography color="error">{errors.cardNumber && 'Введите номер карты'}</Typography>
+            </label>
+          </div>
+          <div>
+            <label>
+              Срок действия <br/>
+              <RHFInput
+                as={<TextField type="month"/>}
+                name="expiryDate"
+                defaultValue={cardData.expiryDate}
+                register={register({ required: true })}
+              />
+              <Typography color="error">{errors.expiryDate && 'Введите срок действия карты'}</Typography>              
+            </label>
+          </div>
+          <div>
+            <label>
+              Имя владельца <br/>
+              <RHFInput
+                as={<TextField/>}
+                name="cardName"
+                defaultValue={cardData.cardName}
+                register={register({ required: true })}
+              />
+              <Typography color="error">{errors.cardName && 'Введите имя владельца карты'}</Typography>              
+            </label>
+          </div>
+          <div>
+            <label>
+              CVC <br/>
+              <RHFInput
+                as={<TextField type="number"/>}
+                name="cvc"
+                defaultValue={cardData.cvc}
+                register={register({ required: true })}
+              />
+              <Typography color="error">{errors.cvc && 'Введите cvc код с обратной стороны карты'}</Typography>              
+            </label>
+          </div>
+          <div>
+            <br/>
+            <Button type="submit">Сохранить</Button>
+          </div>
+        </form>
+      </ThemeProvider>
     );
-  }
+  }  
 }
  
 export default connect(

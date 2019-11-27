@@ -4,8 +4,15 @@ export const appSelector = state =>
 export const isLoginSelector = state => 
   appSelector(state).isLogin.isAuth;
 
+
 export const isCardSelector = state => 
   appSelector(state).payment.isCard;
+
+export const cardDataSelector = state => 
+  appSelector(state).payment.card;
+
+export const cardLoadSelector = state => 
+  appSelector(state).payment.loader;
 
 export const addressesSelector = state => 
   appSelector(state).address.addresses;

@@ -8900,6 +8900,16 @@ react-final-form@^6.3.3:
     "@babel/runtime" "^7.4.5"
     ts-essentials "^3.0.2"
 
+react-hook-form-input@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-hook-form-input/-/react-hook-form-input-1.0.12.tgz#6bfaf5acf1e54df6997725ac49fc86efdc3aae7e"
+  integrity sha512-UPWfw3vcGoE0hHM8HOAeUtka+8kpX9ZoFY03DPpl9Dkz2nzciY/t2BKyntLZ83Uo4koQi3NExZpRUjtyXbSKcA==
+
+react-hook-form@^3.28.4:
+  version "3.28.4"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-3.28.4.tgz#ce98c4a63d98e94cad5261af7276cbf8e816538a"
+  integrity sha512-V4zItF6Ny/29uWkvc1jHTHJ0+3IyjPSh6IB/VXpuSPa039HSEWCBTJstds7ST6K/eJr+ezeQFMm2EJuE1DIHzQ==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.6:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
