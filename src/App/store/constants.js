@@ -9,6 +9,7 @@ export const LOG_IN_FAILURE = `${STORE_TYPE}/LOG_IN_FAILURE`;
 export const SIGN_UP = `${STORE_TYPE}/SIGN_UP`;
 export const SIGN_UP_SUCCESS = `${STORE_TYPE}/SIGN_UP_SUCCESS`;
 export const SIGN_UP_FAILURE = `${STORE_TYPE}/SIGN_UP_FAILURE`;
+export const LOG_OUT = `${STORE_TYPE}/LOG_OUT`;
 
 
 export const GET_CARD = `${STORE_TYPE}/GET_CARD`;

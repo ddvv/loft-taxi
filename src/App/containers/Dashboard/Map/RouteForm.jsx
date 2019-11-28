@@ -2,13 +2,28 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from "./../../../store/duck";
-import { addressesSelector, routeSelector, isCardSelector } from "./../../../store/selectors";
-// import { Form, Field } from 'react-final-form';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
+import { 
+  addressesSelector, 
+  routeSelector, 
+  isCardSelector, 
+} from "./../../../store/selectors";
+import {
+  Card,
+  CardContent,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Button,
+} from "@material-ui/core";
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './../Shared/theme';
+
+const routeTheme = createMuiTheme({
+  route_card: {
+    position: "absolute",
+  },
+});
 
 const mapStateToProps = state => {
   return {
@@ -67,50 +82,70 @@ class RouteForm extends Component {
     
     if(!isCard) {
       return (
-        <Button>
-          <NavLink to="/dashboard/profile">Добавить платежные данные</NavLink>
-        </Button>        
+        <ThemeProvider theme={theme}>
+          <Card>
+            <CardContent>
+              <Button>
+                <NavLink to="/dashboard/profile">Добавить платежные данные</NavLink>
+              </Button>  
+            </CardContent>
+          </Card>
+        </ThemeProvider>   
       )
     }
     if(routeData.length === 0) {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <FormControl >
-              <InputLabel>Откуда</InputLabel>
-              <Select
-                name="address1"
-                value={address1}
-                onChange={this.handleChange}
-              >
-                {addresses.map((address, item) => {
-                  return (<MenuItem value={address} key={item}>{address}</MenuItem>)
-                })}
-              </Select>
-            </FormControl>
-          </div>
-          <div>
-            <FormControl >
-              <InputLabel>Куда</InputLabel>
-              <Select
-                name="address2"
-                value={address2}
-                onChange={this.handleChange}
-              >
-                {addresses.map((address, item) => {
-                  return (<MenuItem value={address} key={item}>{address}</MenuItem>)
-                })}
-              </Select> 
-            </FormControl>
-          </div>
-          <div>
-            <Button type="submit">Построить маршрут</Button>
-          </div>
-        </form>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            <Card>
+              <CardContent>
+                <form onSubmit={this.handleSubmit}>
+                  <div>
+                    <FormControl >
+                      <InputLabel>Откуда</InputLabel>
+                      <Select
+                        name="address1"
+                        value={address1}
+                        onChange={this.handleChange}
+                      >
+                        {addresses.map((address, item) => {
+                          return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div>
+                    <FormControl >
+                      <InputLabel>Куда</InputLabel>
+                      <Select
+                        name="address2"
+                        value={address2}
+                        onChange={this.handleChange}
+                      >
+                        {addresses.map((address, item) => {
+                          return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+                        })}
+                      </Select> 
+                    </FormControl>
+                  </div>
+                  <div>
+                    <Button type="submit">Построить маршрут</Button>
+                  </div>
+                </form> 
+              </CardContent>
+            </Card>
+          </ThemeProvider>
+        </ThemeProvider>
       );
     } else {
       return(
-        <Button onClick={this.handleNewRoute}>Сделать новый заказ</Button>
+        <ThemeProvider theme={theme}>
+          <Card>
+            <CardContent>
+              <Button onClick={this.handleNewRoute}>Сделать новый заказ</Button> 
+            </CardContent>
+          </Card>
+        </ThemeProvider>
       )      
     }    
   }

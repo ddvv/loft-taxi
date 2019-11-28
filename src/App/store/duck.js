@@ -12,6 +12,7 @@ const initialState = {
   isAuth: false, // статус авторизации
   loader: false, // показывать прелодер или нет
   success: {}, // для данных ответа
+  error: "",
 };
 
 const initialStatePayment = {
@@ -45,6 +46,7 @@ export const actions = {
   logIn: createAction(constants.LOG_IN),
   logInSuccess: createAction(constants.LOG_IN_SUCCESS),
   logInFailure: createAction(constants.LOG_IN_FAILURE),
+  logOut: createAction(constants.LOG_OUT),
 
   signUp: createAction(constants.SIGN_UP),
   signUpSuccess: createAction(constants.SIGN_UP_SUCCESS),
@@ -73,12 +75,16 @@ export const actions = {
 
 const isLogin = (state = initialState, action) => {
   switch (action.type) {
+    
   case constants.CHECK_IS_LOGIN:
     if (isAuth) {
       return { ...state, isAuth: true };
     } else {
       return { ...state, isAuth: false };
     }
+  case constants.LOG_OUT:
+    localStorage.setItem("isAuth", JSON.stringify(false));
+    return { ...state,  isAuth: false};
 
   case constants.LOG_IN:
     return { ...state, loader: true };
@@ -86,19 +92,19 @@ const isLogin = (state = initialState, action) => {
   case constants.LOG_IN_SUCCESS:
     localStorage.setItem("isAuth", JSON.stringify(true));
     localStorage.setItem("tokenAuth", JSON.stringify(action.payload.token));
-    return { ...state, isAuth: true, loader: false };
+    return { ...state, isAuth: true, loader: false, error: "" };
 
   case constants.LOG_IN_FAILURE:
-    return { ...state, loader: false };
+    return { ...state, loader: false, error: action.payload.error };
 
   case constants.SIGN_UP:
     return { ...state, loader: true };
 
   case constants.SIGN_UP_SUCCESS:
-    return { ...state, isAuth: true, loader: false };
+    return { ...state, isAuth: true, loader: false, error: "" };
 
   case constants.SIGN_UP_FAILURE:
-    return { ...state, loader: false };
+    return { ...state, loader: false, error: action.payload.error };
 
   default:
     return state;

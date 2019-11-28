@@ -1,22 +1,31 @@
 import React, { Component } from "react";
-
-//> material-ui
-import { ThemeProvider } from '@material-ui/core/styles';
-// import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-// import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-// import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-//< material-ui
-
+import { NavLink } from 'react-router-dom';
 import { actions } from "../../store/duck";
 import { connect } from 'react-redux';
+import { 
+  isLoginLoadSelector, 
+  isLoginErrorSelector, 
+} from './../../store/selectors';
+import useForm from 'react-hook-form';
+import { RHFInput } from "react-hook-form-input";
+//> material-ui
+import { ThemeProvider } from '@material-ui/core/styles';
+import {
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+} from "@material-ui/core";
+import { theme } from './../Dashboard/Shared/theme';
+//< material-ui
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+  return {
+    isLoading: isLoginLoadSelector(state),
+    logInError: isLoginErrorSelector(state),
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -24,60 +33,70 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      email: '',
-      password: '',
-    };
-  }
+const LoginForm = ({
+  isLoading,
+  logInError,
+  logIn,
+}) => {
+  const { register, handleSubmit, errors } = useForm();
 
-  handleChange = e => {
-    this.setState({ 
-      [e.target.name]: e.target.value
-    });
+  const onSubmit = (data, e) => {
+    e.preventDefault(); 
+    logIn(data);
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { email, password } = this.state;
-    const { logIn } = this.props;
-
-    if(email && password) {
-      logIn(this.state);
-    }
-  };
-
-  render() { 
-    return ( 
-      <form onSubmit={this.handleSubmit}>
-        <ThemeProvider theme={this.theme}>
-          <div>
-            <Typography variant="h5">
-              Войти
-            </Typography>
-          </div>
-          <div>
-            <FormControl>
-              <InputLabel htmlFor="component-name">Имя пользователя</InputLabel>
-              <Input type="email" name="email" id="component-name" onChange={this.handleChange}/>
-            </FormControl>
-          </div>
-          <div>
-            <FormControl>
-              <InputLabel htmlFor="component-password">Пароль</InputLabel>
-              <Input type="password" name="password" id="component-password"  onChange={this.handleChange}/>
-            </FormControl>
-          </div>
-          <div>
-            <Button type="submit">
-              Войти
-            </Button>
-          </div>  
-        </ThemeProvider>        
-      </form>
-    );
+  if(isLoading) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Typography variant="body1" gutterBottom>Данные загружаются...</Typography>
+      </ThemeProvider>
+    )
+  } else {
+    return(
+      <ThemeProvider theme={theme}>
+        <Card>
+          <CardContent>
+            <div>
+              <Typography variant="h5">Войти</Typography>
+            </div>
+            <div>
+              <Typography variant="">
+                Новый пользователь? <NavLink to="/signup">Зарегистрируйтесь</NavLink>
+              </Typography>
+            </div>
+            <br/>
+            {logInError && <Typography color="error">{logInError}</Typography>}
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label>
+                  Имя пользователя <br/>
+                  <RHFInput
+                    as={<TextField type="text"/>}
+                    name="email"
+                    register={register({ required: true })}
+                  />
+                  <Typography color="error">{errors.email && 'Обязательное поле'}</Typography>
+                </label>
+              </div>
+              <div>
+                <label>
+                  Пароль <br/>
+                  <RHFInput
+                    as={<TextField type="password"/>}
+                    name="password"
+                    register={register({ required: true })}
+                  />
+                  <Typography color="error">{errors.email && 'Обязательное поле'}</Typography>
+                </label>
+              </div>
+              <div>
+                <Button type="submit">Войти</Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </ThemeProvider>
+    )
   }
 }
  

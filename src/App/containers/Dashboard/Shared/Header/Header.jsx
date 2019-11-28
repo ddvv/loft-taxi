@@ -1,13 +1,30 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actions } from "./../../../../store/duck";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+} from "@material-ui/core";
+import { ThemeProvider } from '@material-ui/core/styles';
 import { Logo } from "./../Logo";
-import { ThemeProvider, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import { theme } from './../theme';
 
-const Header = () => {
+const mapDispatchToProps = dispatch => {
+  return {
+    checkIsLogin: () => dispatch(actions.logOut())
+  }
+};
+
+const Header = (props) => {
+
+  const logOut = e => {
+    e.preventDefault(); 
+    const { checkIsLogin } = props;
+    checkIsLogin();
+  };
+
   return ( 
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -19,10 +36,16 @@ const Header = () => {
           <Button>
             <NavLink to="/dashboard/profile">Профиль</NavLink>
           </Button>
+          <Button onClick={logOut}>
+            Выйти
+          </Button>
         </Toolbar>
       </AppBar>
     </ThemeProvider>    
   );
 }
  
-export default Header;
+export default connect(
+  null, 
+  mapDispatchToProps
+)(Header);

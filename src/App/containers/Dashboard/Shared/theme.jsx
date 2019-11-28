@@ -56,6 +56,11 @@ export const theme = createMuiTheme({
       root: {
         justifyContent: "space-between"
       }
+    },
+    MuiCard: {
+      root: {
+        display: "inline-block",
+      }
     }
   }
 });

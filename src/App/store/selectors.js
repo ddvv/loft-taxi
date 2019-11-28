@@ -4,6 +4,12 @@ export const appSelector = state =>
 export const isLoginSelector = state => 
   appSelector(state).isLogin.isAuth;
 
+export const isLoginLoadSelector = state => 
+  appSelector(state).isLogin.loader;
+
+export const isLoginErrorSelector = state => 
+  appSelector(state).isLogin.error;
+
 
 export const isCardSelector = state => 
   appSelector(state).payment.isCard;
