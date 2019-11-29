@@ -26,11 +26,11 @@ const styles = (theme) => ({
 });
 
 export const Logo = withStyles(styles)((
-  // { white, animated, classes }
+  { white, animated, classes }
 ) => {
   return (
     <img
-      // className={animated && classes.logo}
+      className={animated && classes.logo}
       src={logo}
       width="156"
       alt="Logo"

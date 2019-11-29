@@ -45,6 +45,7 @@ export const theme = createMuiTheme({
         textTransform: "none"
       },
       containedPrimary: {
+        marginTop: "10px",
         boxShadow: "none",
         backgroundColor: "#ffc617",
         "&:focus": {
@@ -59,6 +60,8 @@ export const theme = createMuiTheme({
     },
     MuiCard: {
       root: {
+        marginTop: "20px",
+        marginLeft: "20px",
         display: "inline-block",
       }
     }

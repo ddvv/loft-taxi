@@ -16,14 +16,8 @@ import {
   InputLabel,
   Button,
 } from "@material-ui/core";
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './../Shared/theme';
-
-const routeTheme = createMuiTheme({
-  route_card: {
-    position: "absolute",
-  },
-});
 
 const mapStateToProps = state => {
   return {
@@ -49,7 +43,7 @@ class RouteForm extends Component {
       address2: '',
     };
   }
-
+  
   componentDidMount() {
     const { getAddresses } = this.props;
     getAddresses();
@@ -79,13 +73,14 @@ class RouteForm extends Component {
   render() {
     const { address1, address2 } = this.state;
     const { addresses, routeData, isCard } = this.props;
+    const selectStyle = {minWidth: 240};
     
     if(!isCard) {
       return (
         <ThemeProvider theme={theme}>
-          <Card>
+          <Card style={{ position: "absolute", zIndex:1, margin: "20px 0 0 20px",}}>
             <CardContent>
-              <Button>
+              <Button variant="containedPrimary">
                 <NavLink to="/dashboard/profile">Добавить платежные данные</NavLink>
               </Button>  
             </CardContent>
@@ -96,53 +91,53 @@ class RouteForm extends Component {
     if(routeData.length === 0) {
       return (
         <ThemeProvider theme={theme}>
-          <ThemeProvider theme={theme}>
-            <Card>
-              <CardContent>
-                <form onSubmit={this.handleSubmit}>
-                  <div>
-                    <FormControl >
-                      <InputLabel>Откуда</InputLabel>
-                      <Select
-                        name="address1"
-                        value={address1}
-                        onChange={this.handleChange}
-                      >
-                        {addresses.map((address, item) => {
-                          return (<MenuItem value={address} key={item}>{address}</MenuItem>)
-                        })}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div>
-                    <FormControl >
-                      <InputLabel>Куда</InputLabel>
-                      <Select
-                        name="address2"
-                        value={address2}
-                        onChange={this.handleChange}
-                      >
-                        {addresses.map((address, item) => {
-                          return (<MenuItem value={address} key={item}>{address}</MenuItem>)
-                        })}
-                      </Select> 
-                    </FormControl>
-                  </div>
-                  <div>
-                    <Button type="submit">Построить маршрут</Button>
-                  </div>
-                </form> 
-              </CardContent>
-            </Card>
-          </ThemeProvider>
+          <Card style={{ position: "absolute", zIndex:1, margin: "20px 0 0 20px",}}>
+            <CardContent>
+              <form onSubmit={this.handleSubmit}>
+                <div>
+                  <FormControl >
+                    <InputLabel>Откуда</InputLabel>
+                    <Select
+                      name="address1"
+                      value={address1}
+                      onChange={this.handleChange}
+                      style={selectStyle}
+                    >
+                      {addresses.map((address, item) => {
+                        return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+                      })}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl >
+                    <InputLabel>Куда</InputLabel>
+                    <Select
+                      name="address2"
+                      value={address2}
+                      onChange={this.handleChange}
+                      style={selectStyle}
+                    >
+                      {addresses.map((address, item) => {
+                        return (<MenuItem value={address} key={item}>{address}</MenuItem>)
+                      })}
+                    </Select> 
+                  </FormControl>
+                </div>
+                <div>
+                  <Button type="submit" variant="containedPrimary">Построить маршрут</Button>
+                </div>
+              </form> 
+            </CardContent>
+          </Card>
         </ThemeProvider>
       );
     } else {
       return(
         <ThemeProvider theme={theme}>
-          <Card>
+          <Card style={{ position: "absolute", zIndex:1, margin: "20px 0 0 20px",}}>
             <CardContent>
-              <Button onClick={this.handleNewRoute}>Сделать новый заказ</Button> 
+              <Button onClick={this.handleNewRoute} variant="containedPrimary">Сделать новый заказ</Button> 
             </CardContent>
           </Card>
         </ThemeProvider>

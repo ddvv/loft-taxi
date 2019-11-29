@@ -13,9 +13,9 @@ import {
   CardContent,
   TextField,
   Button,
-  ThemeProvider,
   Typography,
 } from "@material-ui/core";
+import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './../Dashboard/Shared/theme';
 
 const mapStateToProps = state => {

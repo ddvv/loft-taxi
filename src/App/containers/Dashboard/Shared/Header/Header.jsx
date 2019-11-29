@@ -30,15 +30,24 @@ const Header = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Logo/>
-          <Button>
-            <NavLink to="/dashboard/map">Карта</NavLink>
-          </Button>
-          <Button>
-            <NavLink to="/dashboard/profile">Профиль</NavLink>
-          </Button>
-          <Button onClick={logOut}>
-            Выйти
-          </Button>
+          <div>
+            <Button>
+              <NavLink 
+                to="/dashboard/map" 
+                style={{ color: "#000", textDecoration: "none",}}
+              >Карта</NavLink>
+            </Button>
+            <Button>
+              <NavLink 
+                to="/dashboard/profile"
+                style={{ color: "#000", textDecoration: "none",}}
+              >Профиль</NavLink>
+            </Button>
+            <Button onClick={logOut}>
+              Выйти
+            </Button>
+          </div>
+          
         </Toolbar>
       </AppBar>
     </ThemeProvider>    

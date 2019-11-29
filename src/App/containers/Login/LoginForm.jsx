@@ -38,10 +38,11 @@ const LoginForm = ({
   logInError,
   logIn,
 }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, getValues, errors } = useForm();
 
   const onSubmit = (data, e) => {
     e.preventDefault(); 
+    const values = getValues();
     logIn(data);
   };
 
