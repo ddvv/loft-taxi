@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from 'react-router-dom';
 import { actions } from "../../store/duck";
 import { connect } from 'react-redux';
@@ -38,11 +38,10 @@ const LoginForm = ({
   logInError,
   logIn,
 }) => {
-  const { register, handleSubmit, getValues, errors } = useForm();
+  const { register, handleSubmit, errors, setValue} = useForm();
 
   const onSubmit = (data, e) => {
     e.preventDefault(); 
-    const values = getValues();
     logIn(data);
   };
 
@@ -61,7 +60,7 @@ const LoginForm = ({
               <Typography variant="h5">Войти</Typography>
             </div>
             <div>
-              <Typography variant="">
+              <Typography variant="body1">
                 Новый пользователь? <NavLink to="/signup">Зарегистрируйтесь</NavLink>
               </Typography>
             </div>
@@ -75,6 +74,7 @@ const LoginForm = ({
                     as={<TextField type="text"/>}
                     name="email"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.email && 'Обязательное поле'}</Typography>
                 </label>
@@ -86,6 +86,7 @@ const LoginForm = ({
                     as={<TextField type="password"/>}
                     name="password"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.email && 'Обязательное поле'}</Typography>
                 </label>

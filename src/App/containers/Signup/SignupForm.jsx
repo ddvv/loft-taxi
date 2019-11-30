@@ -36,7 +36,7 @@ const SignupForm = ({
   signUpError,
   signUp,
 }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, setValue } = useForm();
   
   const onSubmit = (data, e) => {
     e.preventDefault();  
@@ -58,7 +58,7 @@ const SignupForm = ({
               <Typography variant="h5">Регистрация</Typography>
             </div>
             <div>
-              <Typography variant="">
+              <Typography variant="body1">
                 Уже зарегистрированы? <NavLink to="/login">Войти</NavLink>
               </Typography>
             </div>
@@ -72,6 +72,7 @@ const SignupForm = ({
                     as={<TextField type="text"/>}
                     name="email"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.email && 'Обязательное поле'}</Typography>
                 </label>
@@ -83,6 +84,7 @@ const SignupForm = ({
                     as={<TextField type="text"/>}
                     name="name"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.name && 'Обязательное поле'}</Typography>
                 </label>
@@ -94,6 +96,7 @@ const SignupForm = ({
                     as={<TextField type="text"/>}
                     name="surname"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.surname && 'Обязательное поле'}</Typography>
                 </label>
@@ -105,6 +108,7 @@ const SignupForm = ({
                     as={<TextField type="text"/>}
                     name="password"
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.password && 'Обязательное поле'}</Typography>
                 </label>

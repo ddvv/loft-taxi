@@ -72,7 +72,7 @@ export function* fetchCardWorker(action) {
 }
 
 export function* cardWatch() {
-  yield takeLatest(constants.CARD, fetchCardWorker);
+  yield takeLatest(constants.SEND_CARD, fetchCardWorker);
 }
 
 

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import useForm from 'react-hook-form';
 import { RHFInput } from "react-hook-form-input";
 import { connect } from 'react-redux';
@@ -23,21 +23,22 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    card: value => dispatch(actions.card(value)),
+    sendCardData: value => dispatch(actions.sendCardData(value)),
     getCard: () => dispatch(actions.getCard())
   }
 };
 
 const PaymentForm = ({ 
   cardData,
-  card,
+  sendCardData,
+  getCard,
   isLoadingCard,
 }) => {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors, setValue } = useForm();
 
   const onSubmit = (data, e) => {
     e.preventDefault();  
-    card(data);
+    sendCardData(data);
   };
 
   if(isLoadingCard) {
@@ -66,6 +67,7 @@ const PaymentForm = ({
                     name="cardNumber"
                     defaultValue={cardData.cardNumber}
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.cardNumber && 'Введите номер карты'}</Typography>
                 </label>
@@ -78,6 +80,7 @@ const PaymentForm = ({
                     name="expiryDate"
                     defaultValue={cardData.expiryDate}
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.expiryDate && 'Введите срок действия карты'}</Typography>              
                 </label>
@@ -90,6 +93,7 @@ const PaymentForm = ({
                     name="cardName"
                     defaultValue={cardData.cardName}
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.cardName && 'Введите имя владельца карты'}</Typography>              
                 </label>
@@ -102,13 +106,14 @@ const PaymentForm = ({
                     name="cvc"
                     defaultValue={cardData.cvc}
                     register={register({ required: true })}
+                    setValue={setValue}
                   />
                   <Typography color="error">{errors.cvc && 'Введите cvc код с обратной стороны карты'}</Typography>              
                 </label>
               </div>
               <div>
                 <br/>
-                <Button type="submit" variant="containedPrimary">Сохранить</Button>
+                <Button type="submit" variant="contained" color="primary">Сохранить</Button>
               </div>
             </form>
           </CardContent>

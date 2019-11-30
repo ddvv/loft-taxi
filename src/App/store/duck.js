@@ -32,13 +32,6 @@ const initialStateRoute = {
   route: [],
 }
 
-const logIn = payload => {
-  return {
-    type: constants.LOG_IN,
-    payload
-  };
-};
-
 // создаем экшены
 export const actions = {
   checkIsLogin: createAction(constants.CHECK_IS_LOGIN),
@@ -52,9 +45,9 @@ export const actions = {
   signUpSuccess: createAction(constants.SIGN_UP_SUCCESS),
   signUpFailure: createAction(constants.SIGN_UP_FAILURE),
 
-  card: createAction(constants.CARD),
-  cardSuccess: createAction(constants.CARD_SUCCESS),
-  cardFailure: createAction(constants.CARD_FAILURE),
+  sendCardData: createAction(constants.SEND_CARD),
+  cardSuccess: createAction(constants.SEND_CARD_SUCCESS),
+  cardFailure: createAction(constants.SEND_CARD_FAILURE),
   getCard: createAction(constants.GET_CARD),
   getCardSuccess: createAction(constants.GET_CARD_SUCCESS),
   getCardFailure: createAction(constants.GET_CARD_FAILURE),
@@ -122,14 +115,14 @@ const payment = (state = initialStatePayment, action) => {
   case constants.GET_CARD_FAILURE:
     return { ...state, loader: false };
 
-  case constants.CARD:
-    return { ...state, loader: true };
+  case constants.SEND_CARD:
+    return { ...state, loader: true, card: action.payload };
 
-  case constants.CARD_SUCCESS:
+  case constants.SEND_CARD_SUCCESS:
     return { ...state, loader: false, isCard: true };
 
-  case constants.CARD_FAILURE:
-    return { ...state, loader: false };
+  case constants.SEND_CARD_FAILURE:
+    return { ...state, loader: false , card: {} };
 
   default:
     return state;

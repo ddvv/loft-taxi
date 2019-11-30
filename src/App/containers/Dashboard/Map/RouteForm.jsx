@@ -80,7 +80,7 @@ class RouteForm extends Component {
         <ThemeProvider theme={theme}>
           <Card style={{ position: "absolute", zIndex:1, margin: "20px 0 0 20px",}}>
             <CardContent>
-              <Button variant="containedPrimary">
+              <Button variant="contained" color="primary">
                 <NavLink to="/dashboard/profile">Добавить платежные данные</NavLink>
               </Button>  
             </CardContent>
@@ -125,7 +125,7 @@ class RouteForm extends Component {
                   </FormControl>
                 </div>
                 <div>
-                  <Button type="submit" variant="containedPrimary">Построить маршрут</Button>
+                  <Button type="submit" variant="contained" color="primary">Построить маршрут</Button>
                 </div>
               </form> 
             </CardContent>
@@ -137,7 +137,7 @@ class RouteForm extends Component {
         <ThemeProvider theme={theme}>
           <Card style={{ position: "absolute", zIndex:1, margin: "20px 0 0 20px",}}>
             <CardContent>
-              <Button onClick={this.handleNewRoute} variant="containedPrimary">Сделать новый заказ</Button> 
+              <Button onClick={this.handleNewRoute} variant="contained" color="primary">Сделать новый заказ</Button> 
             </CardContent>
           </Card>
         </ThemeProvider>
